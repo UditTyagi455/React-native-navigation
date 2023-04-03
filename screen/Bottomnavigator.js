@@ -15,7 +15,7 @@ const Bottomnavigator = () => {
             position: 'absolute',
             height: '100%',
             width: '100%',
-            backgroundColor: 'red',
+            backgroundColor: 'green',
           }}>
     <Bottomtabs.Navigator screenOptions={({route}) => ({
                     tabBarShowLabel: false,

@@ -7,12 +7,10 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 const Tabscreenheader = ({menu=true,back=false,title="Welcome, Mate"}) => {
       const navigation = useNavigation();
   return (
-  
-
     <View style={styles.tabHeader}>
 
       {menu && <TouchableWithoutFeedback onPress={() => navigation.openDrawer()} style={styles.closemenu}>
-      <Image source={require("../assets/img/menu.png")} style={styles.menuImage}/>
+      <Image source={require("../assets/img/menu.png")} style={[styles.menuImage]}/>
       </TouchableWithoutFeedback>}
       
       {back && <TouchableWithoutFeedback onPress={() => navigation.goBack()} style={styles.closemenu}>
@@ -33,22 +31,21 @@ const styles = StyleSheet.create({
             borderColor: "black",
       },
       tabHeader: {
-            backgroundColor: "#8963BA",
-            height: 80,
+            backgroundColor: "#DCF763",
+            height: 70,
             flex: 1,
-            flexDirection: 'row'
+            flexDirection: 'row',
       },
       menuImage:{
             height: 25,
             width: 25,
             marginTop: 25,
             marginLeft: 20,
-            color: "white"
       },
       welcomeText: {
             fontSize: 25,
             fontWeight: "bold",
-            color: 'white',
+            color: 'black',
             marginTop: 18,
             marginLeft: 20
       }
