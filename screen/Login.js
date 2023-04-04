@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Text,
   Touchable,
+  TouchableOpacity,
   View,
 } from "react-native";
 import React, { useContext, useState } from "react";
@@ -13,6 +14,8 @@ import {
   TextInput,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
+import { Formik } from "formik";
+import * as Yup from "yup";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import MyContext from "../component/CreateContextApi";
@@ -25,11 +28,17 @@ const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
+  const [validationSchema, setValidationSchema] = useState(
+    Yup.object().shape({
+      username: Yup.string().required("* Username required"),
+      password: Yup.string().required("* password required"),
+  })
+  );
 
-  const login = async () => {
-    if (username == "" || password == "") return;
-    if (username == "udittyagi455" && password == "123456") {
-      await AsyncStorage.setItem("token", "k@jdsklfl343lsdflksd");
+  const handleSubmit = (values) => {
+    if (values.username == "" || values.password == "") return;
+    if (values.username == "udittyagi455" && values.password == "123456") {
+      AsyncStorage.setItem("token", "k@jdsklfl343lsdflksd");
       //  mytoken.setMyToken(await AsyncStorage.setItem('token',"k@jdsklfl343lsdflksd"));
       //  navigation.navigate("Drawernavigate");
       props.navigation.reset({
@@ -45,6 +54,23 @@ const Login = (props) => {
   return (
     <SafeAreaView>
       <KeyboardAvoidingView>
+      <Formik
+          initialValues={{
+            username: "",
+            password: "",
+          }}
+          onSubmit={handleSubmit}
+          validationSchema={validationSchema}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+          }) => (
         <View style={styles.fullScreen}>
           <View style={{ position: "absolute", top: 75, left: 35 }}>
             <Text style={[styles.labels, { color: "#fff", fontSize: 45 }]}>
@@ -56,17 +82,22 @@ const Login = (props) => {
             <View style={styles.usernamePassword}>
               <TextInput
                 style={styles.textField}
-                onChangeText={setUsername}
-                value={username}
+                onChangeText={handleChange("username")}
+                value={values.username}
                 placeholder="Username..."
-                autoFocus={true}
+                autoFocus={false}
               />
+              <View style={styles.errorFieldWrap}>
+                    {touched.username && errors.username && (
+                      <Text style={styles.errorMessage}>{errors.username}</Text>
+                    )}
+                  </View>
             </View>
             <View>
               <TextInput
                 style={styles.textField}
-                onChangeText={setPassword}
-                value={password}
+                onChangeText={handleChange("password")}
+                value={values.password}
                 placeholder="Password..."
                 secureTextEntry={!show ? true : false}
               />
@@ -77,7 +108,7 @@ const Login = (props) => {
 
             <TouchableWithoutFeedback
               style={styles.loginButton}
-              onPress={() => login()}
+              onPress={handleSubmit}
             >
               <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 15 }}>
                 Login
@@ -86,22 +117,25 @@ const Login = (props) => {
 
             <View
               style={{
-                flex: 1,
+                // flex: 1,
                 flexDirection: "row",
                 justifyContent: "center",
                 marginTop: 15,
+                // borderWidth: 5,
+                // height: 40
               }}
             >
               <Text style={{ fontSize: 20 }}>New User?</Text>
               <Text
-                style={{ color: "blue", fontSize: 20, paddingLeft: 5 }}
-                onPress={() => navigation.navigate("Register")}
+                style={{ color: "blue", fontSize: 20, paddingLeft: 5 }} onPress={() => navigation.navigate("Register")}
               >
                 Register now..
               </Text>
             </View>
           </View>
         </View>
+        )}
+        </Formik>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

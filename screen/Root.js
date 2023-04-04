@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,Image } from 'react-native'
+import { StyleSheet, Text, View,Image,Dimensions } from 'react-native'
 import React, { useEffect } from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Loktaklake } from '../api/Images/Images';
@@ -36,6 +36,6 @@ export default Root
 
 const styles = StyleSheet.create({
   rootImage: {
-    height: 800
+    height: Dimensions.get('screen').height
   }
 })

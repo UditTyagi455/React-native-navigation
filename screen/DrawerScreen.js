@@ -29,7 +29,7 @@ const DrawerScreen = (props) => {
             </TouchableWithoutFeedback>
 
            <View style={styles.DrawerScreen}>
-            <Text style={[styles.listText,{borderBottomWidth: 2}]} onPress={() => props.navigation.closeDrawer()}>Home</Text>
+            <Text style={[styles.listText,{borderBottomWidth: 2}]} onPress={() => navigation.navigate("Home")}>Home</Text>
             <Text style={[styles.listText,{borderBottomWidth: 2}]} onPress={() => navigation.navigate("Services")}>Our Services</Text>
             <Text style={[styles.listText,{borderBottomWidth: 2}]} onPress={() => navigation.navigate("Aboutus")}>About Us</Text>
             <Text style={[styles.listText]} onPress={() => navigation.navigate("Contact")}>Contact Us</Text>

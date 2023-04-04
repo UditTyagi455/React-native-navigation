@@ -51,6 +51,22 @@ export const Loktaklake = [
             id:6,
             url: "https://tms.tourgenie.com/assets/images/imgblog/blogimg_24_c690cd77a382935735ed037ee25da4e9.webp"
       },
+      {
+            id:7,
+            url: "https://media.gettyimages.com/id/160825590/photo/fishing-loktak-lake-near-imphal-manipur-india.jpg?s=612x612&w=0&k=20&c=7XchWFReeFg_d8Bvg_t387l4DSvIe678T9ZqfY88CGE="
+      },
+      {
+            id:8,
+            url: "https://media.gettyimages.com/id/984458312/photo/loktak-lake.jpg?s=612x612&w=0&k=20&c=Ncc_Yv1w1eZY-lIOa6wcS2maIywYuKCl2pkgM6ElHJY="
+      },
+      {
+            id:9,
+            url: "https://media.gettyimages.com/id/1303580652/photo/fisher-house-on-a-phumdi-loktak-lake-moirang-manipur-india-asia.jpg?s=612x612&w=0&k=20&c=wGXj-woswTsk-aLse_OXSWahYnPRWGnoPqu1EK7oxt0="
+      },
+      {
+            id:10,
+            url: "https://media.gettyimages.com/id/83785801/photo/indian-youth-paddle-their-kayaks-on-loktak-lake-some-48-kms-southwest-of-imphal-in-manipur.jpg?s=612x612&w=0&k=20&c=FTJpZ3TAzBkkwhXHylN-fijpNCbmnKUYNMhshPm6OAM="
+      },
 ]
 
 export const Lonarlake = [

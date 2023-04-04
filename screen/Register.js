@@ -13,11 +13,12 @@ import {
   TextInput,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
+import * as Yup from "yup";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import MyContext from "../component/CreateContextApi";
 import { Formik } from "formik";
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from "react-native-vector-icons/Ionicons";
 
 const Login = (props) => {
   const mytoken = useContext(MyContext);
@@ -25,7 +26,17 @@ const Login = (props) => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [show,setShow] = useState(false)
+  const [show, setShow] = useState(false);
+  const [validationSchema, setValidationSchema] = useState(
+    Yup.object().shape({
+      username: Yup.string().required("* Username required"),
+      password: Yup.string().required("* password required"),
+      confirmpassword: Yup.string()
+      .test('passwords-match', 'Passwords must match', function(value){
+        return this.parent.password === value
+      })
+  })
+  );
 
   const registerUser = async () => {
     if (username == "" || password == "") return;
@@ -53,9 +64,10 @@ const Login = (props) => {
           initialValues={{
             username: "",
             password: "",
-            confirmpassword: ""
+            confirmpassword: "",
           }}
           onSubmit={handleSubmit}
+          validationSchema={validationSchema}
         >
           {({
             values,
@@ -74,14 +86,19 @@ const Login = (props) => {
               </View>
               <View style={styles.loginscreen}>
                 <Text style={styles.labels}>Register</Text>
-                <View style={[styles.usernamePassword,{marginTop: 10}]}>
+                <View style={[styles.usernamePassword, { marginTop: 10 }]}>
                   <TextInput
                     style={styles.textField}
                     onChangeText={handleChange("username")}
                     value={values.username}
                     placeholder="Username..."
-                    autoFocus={true}
+                    autoFocus={false}
                   />
+                  <View style={styles.errorFieldWrap}>
+                    {touched.username && errors.username && (
+                      <Text style={styles.errorMessage}>{errors.username}</Text>
+                    )}
+                  </View>
                 </View>
                 <View style={styles.usernamePassword}>
                   <TextInput
@@ -91,6 +108,11 @@ const Login = (props) => {
                     placeholder="Password..."
                     secureTextEntry={true}
                   />
+                  <View style={styles.errorFieldWrap}>
+                    {touched.password && errors.password && (
+                      <Text style={styles.errorMessage}>{errors.password}</Text>
+                    )}
+                  </View>
                 </View>
                 <View>
                   <TextInput
@@ -100,9 +122,28 @@ const Login = (props) => {
                     placeholder="Confirm Password..."
                     secureTextEntry={!show ? true : false}
                   />
-                  {show ?
-                  <Icon name="eye" color="#4F8EF7" size={30} style={{position: "absolute",top: 0,right: 5}} onPress={() => setShow(!show)}/> :
-                  <Icon name="eye-off" color="#4F8EF7" size={30} style={{position: "absolute",top: 0,right: 5}} onPress={() => setShow(!show)}/> }
+                  {show ? (
+                    <Icon
+                      name="eye"
+                      color="#4F8EF7"
+                      size={30}
+                      style={{ position: "absolute", top: 0, right: 5 }}
+                      onPress={() => setShow(!show)}
+                    />
+                  ) : (
+                    <Icon
+                      name="eye-off"
+                      color="#4F8EF7"
+                      size={30}
+                      style={{ position: "absolute", top: 0, right: 5 }}
+                      onPress={() => setShow(!show)}
+                    />
+                  )}
+                  <View style={styles.errorFieldWrap}>
+                    {touched.confirmpassword && errors.confirmpassword && (
+                      <Text style={styles.errorMessage}>{errors.confirmpassword}</Text>
+                    )}
+                  </View>
                 </View>
 
                 <TouchableWithoutFeedback
@@ -118,7 +159,7 @@ const Login = (props) => {
 
                 <View
                   style={{
-                    flex: 1,
+                    // flex: 1,
                     flexDirection: "row",
                     justifyContent: "center",
                     marginTop: 15,
@@ -162,6 +203,7 @@ const styles = StyleSheet.create({
   },
   usernamePassword: {
     marginBottom: 28,
+    height: 40,
   },
   textField: {
     borderBottomWidth: 1,
@@ -185,5 +227,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "black",
     borderRadius: 50,
+  },
+  errorMessage: {
+    color: "red",
   },
 });

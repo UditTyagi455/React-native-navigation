@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
       },
       tabHeader: {
             backgroundColor: "#DCF763",
-            height: 70,
+            height: 80,
             flex: 1,
             flexDirection: 'row',
       },

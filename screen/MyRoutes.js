@@ -11,6 +11,7 @@ import Login from './Login';
 import MyContext from '../component/CreateContextApi';
 import Root from './Root';
 import Register from './Register';
+import Details from './Details';
 
 const MyRoutes = () => {
       const getMyToken = useContext(MyContext)
@@ -26,6 +27,7 @@ const MyRoutes = () => {
            <Stack.Screen name="Drawernavigate" component={Drawernavigate}/>
            <Stack.Screen name='Login' component={Login} />
            <Stack.Screen name="Register" component={Register}/>
+           <Stack.Screen name="Details" component={Details}/>
        </Stack.Navigator>
   )
 }

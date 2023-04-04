@@ -10,7 +10,7 @@ const CommonSearch = () => {
         navigator.navigate("Services")
     }
     useEffect(() =>{
-        console.log("component render")
+        // console.log("component render")
     })
   return (
    
